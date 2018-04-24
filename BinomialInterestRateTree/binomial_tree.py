@@ -30,7 +30,7 @@ class BinomialTree:
                 level = period,
                 parent = current,
                 value = base_rates[period] * (
-                    math.e ** (-1 * period)
+                    math.e ** (-1 * period * volatility * 10 ** -2)
                 ),
                 up = None,
                 down = None,
@@ -38,3 +38,15 @@ class BinomialTree:
             )
             current = current.down_child
         current = self.root_node
+        for period in range(1, len(base_rates)):
+            current.up_child = Node(
+                level = period,
+                parent = current,
+                value = base_rates[period] * (
+                    math.e ** (1 * period * volatility * 10 ** -2)
+                ),
+                up = None,
+                down = None,
+                root = False
+            )
+            current = current.up_child
