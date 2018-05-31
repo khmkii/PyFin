@@ -12,13 +12,13 @@ class BinomialTree:
                 -1 * column * self.volatility
             )
             row = self.center + column
-            self.rates_matrix[row][column] = lower_value
+            self.discount_matrix[row][column] = 1 / ( 1 + ( lower_value / 100 ) )
             if column > 0:
                 multiple = 2
                 row -= multiple
                 while row >= 0:
                     value = lower_value * np.e ** (multiple * self.volatility)
-                    self.rates_matrix[row][column] = value
+                    self.discount_matrix[row][column] = 1 / ( 1 + ( value / 100 ) )
                     row -= multiple
                     multiple += 2
 
@@ -27,5 +27,14 @@ class BinomialTree:
         self.base_rates = base_rates
         self.levels = len(base_rates)
         self.center = self.levels - 1
-        self.rates_matrix = np.zeros(shape=((self.levels * 2) - 1, self.levels))
+        self.discount_matrix = np.zeros(shape=((self.levels * 2) - 1, self.levels))
+        self.calibrated = False
         self.recalibrate()
+
+    def value(self, coupon, face_value):
+        shape = self.discount_matrix.shape()
+        # may have to work with transpose of matrix
+        # iterate over elements in rows/columns if not zero perform discount
+
+    def calibrate(self):
+        pass
