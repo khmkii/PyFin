@@ -1,4 +1,5 @@
-
+def gordon_growth_model(cf1, required_return, growth_rate):
+    return cf1 / (required_return - growth_rate)
 
 def H_model(CF_0, g_s, g_l, t, discount_rate):
     H = t / 2
@@ -11,8 +12,11 @@ def two_stage(CF_0, g_s, g_l, discount_rate, t):
     discounted_cash_flows = [
         cf / (1 + discount_rate) ** (n + 1) for n, cf in enumerate(CF_list)
     ]
-    terminal_value = (
-                CF_0 * ( (1 + g_s) ** t ) * (1 + g_l)
-            ) / (discount_rate - g_l)
+    terminal_value_cash_flow = CF_0 * ( (1 + g_s) ** t ) * (1 + g_l)
+    terminal_value = gordon_growth_model(
+        terminal_value_cash_flow,
+        discount_rate,
+        g_l
+    )
     discounted_terminal_value = terminal_value / ( (1 + discount_rate) ** t)
     return sum(discounted_cash_flows) + discounted_terminal_value
