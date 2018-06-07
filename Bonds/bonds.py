@@ -1,5 +1,15 @@
-from collections import namedtuple
+class Bond:
 
-Zero = namedtuple('Zero', 'maturity')
+    def macaulay():
+        return
 
-Straight = namedtuple('Straight' 'maturity coupon')
+class StraightBond(Bond):
+
+    def ___init___(self, coupon, present_value, maturity):
+        self.c = coupon
+        self.pv = present_value
+        self.t = maturity
+
+    @property
+    def ytm(self):
+        pass
