@@ -3,7 +3,7 @@ import numpy as np
 import random
 import unittest
 
-from binomial_tree import BinomialTree
+from BinomialInterestRateTree import BinomialTree
 
 
 class BinomialTreeTests(unittest.TestCase):
